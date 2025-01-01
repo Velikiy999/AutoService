@@ -1,0 +1,15 @@
+﻿@page
+@model AutoService.Pages.Admin.DeleteModel
+
+@{
+    ViewData["Title"] = "Видалити користувача";
+}
+
+<h1>Видалити користувача</h1>
+
+<form asp-page-handler="Delete" method="post">
+    <input type="hidden" name="userId" value="@Model.UserId" />
+    <p>Ви впевнені, що хочете видалити користувача @Model.UserEmail?</p>
+    <button type="submit" class="btn btn-danger">Видалити</button>
+    <a href="/Admin/ManageRoles" class="btn btn-secondary">Назад</a>
+</form>

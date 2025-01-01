@@ -1,0 +1,62 @@
+﻿@page
+@model AutoService.Pages_FinancialReports.IndexModel
+
+@{
+    ViewData["Title"] = "Фінансовий звіт";
+}
+
+<h1>Фінансовий звіт</h1>
+
+<form method="post">
+    <div class="form-group">
+        <label for="StartDate">Початкова дата</label>
+        <input type="date" id="StartDate" name="StartDate" class="form-control" value="@Model.StartDate.ToString("yyyy-MM-dd")" required />
+    </div>
+
+    <div class="form-group">
+        <label for="EndDate">Кінцева дата</label>
+        <input type="date" id="EndDate" name="EndDate" class="form-control" value="@Model.EndDate.ToString("yyyy-MM-dd")" required />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Генерувати звіт</button>
+
+    <a asp-page="./Create" class="btn btn-success">Додати витрати</a>
+
+</form>
+
+@if (Model.FinancialTransactions != null && Model.FinancialTransactions.Any())
+{
+    <h3>Звіт за період: @Model.StartDate.ToString("yyyy-MM-dd") - @Model.EndDate.ToString("yyyy-MM-dd")</h3>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Клієнт</th>
+                <th>Дата</th>
+                <th>Сума</th>
+                <th>Тип операції</th>
+                <th>Опис</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var transaction in Model.FinancialTransactions)
+            {
+                <tr>
+                    <td>@transaction.Client.Name</td>
+                    <td>@transaction.Date.ToString("yyyy-MM-dd")</td>
+                    <td>@transaction.Amount</td>
+                    <td>@transaction.Type</td>
+                    <td>@transaction.Description</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <h4>Загальні доходи: @Model.TotalIncome</h4>
+    <h4>Загальні витрати: @Model.TotalExpenses</h4>
+    <h4>Чистий прибуток: @(Model.TotalIncome - Model.TotalExpenses)</h4>
+}
+else
+{
+    <p>Немає фінансових операцій за вказаний період.</p>
+}

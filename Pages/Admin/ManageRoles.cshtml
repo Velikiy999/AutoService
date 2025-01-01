@@ -1,0 +1,43 @@
+﻿@page
+@model AutoService.Pages.Admin.ManageRolesModel
+@inject UserManager<IdentityUser> UserManager
+@inject RoleManager<IdentityRole> RoleManager
+
+@{
+    ViewData["Title"] = "Управління ролями";
+    var users = UserManager.Users.ToList();
+    var roles = RoleManager.Roles.ToList();
+}
+
+<h1>Управління ролями</h1>
+
+<div style="max-height: 500px; overflow-y: auto;">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Користувач</th>
+                <th>Ролі</th>
+                <th>Призначити роль</th>
+                <th>Дія</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in users)
+            {
+                var userRoles = await UserManager.GetRolesAsync(user);
+                <tr>
+                    <td>@user.Email</td>
+                    <td>@string.Join(", ", userRoles)</td>
+                    <td>
+                        <a asp-page="/Admin/AssignRole" asp-route-userId="@user.Id" class="btn btn-primary">Призначити роль</a>
+                    </td>
+                    <td>
+                        <a asp-page="/Admin/Delete" asp-route-userId="@user.Id" class="btn btn-danger">Видалити</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<a asp-page="/Admin/Create" class="btn btn-success">Створити нового користувача</a>

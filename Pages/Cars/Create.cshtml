@@ -1,0 +1,50 @@
+﻿@page
+@model AutoService.Pages_Cars.CreateModel
+
+@{
+    ViewData["Title"] = "Додати автомобіль";
+}
+
+<h1>Додати автомобіль</h1>
+
+<form method="post">
+    <div class="form-group">
+        <label for="Car_Make">Марка</label>
+        <input type="text" id="Car_Make" name="Car.Make" class="form-control" required />
+    </div>
+
+    <div class="form-group">
+        <label for="Car_Model">Модель</label>
+        <input type="text" id="Car_Model" name="Car.Model" class="form-control" required />
+    </div>
+
+    <div class="form-group">
+        <label for="Car_Year">Рік випуску</label>
+        <input type="number" id="Car_Year" name="Car.Year" class="form-control" required min="1886" max="2100" />
+    </div>
+
+    <div class="form-group">
+        <label for="Car_RegistrationNumber">Реєстраційний номер</label>
+        <input type="text" id="Car_RegistrationNumber" name="Car.RegistrationNumber" class="form-control" required />
+    </div>
+
+    <div class="form-group">
+        <label for="Car_Description">Опис</label>
+        <textarea id="Car_Description" name="Car.Description" class="form-control"></textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="Car_ClientId">Клієнт</label>
+        <select id="Car_ClientId" name="Car.ClientId" class="form-control" required>
+            <option value="" disabled selected>Виберіть клієнта</option>
+            @foreach (var client in Model.Clients)
+            {
+                <option value="@client.Id">@client.Name</option>
+            }
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-2">Додати</button>
+</form>
+
+<a asp-page="./Index" class="btn btn-secondary mt-2">Назад до списку</a>

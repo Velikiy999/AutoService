@@ -1,0 +1,39 @@
+﻿@page
+@model AutoService.Pages.Admin.CreateModel
+
+@{
+    ViewData["Title"] = "Створити користувача";
+}
+
+<h1>Створити нового користувача</h1>
+
+<form method="post">
+    <div class="form-group">
+        <label for="name">Ім'я:</label>
+        <input type="text" id="name" name="name" class="form-control" required />
+    </div>
+    <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" class="form-control" required />
+    </div>
+    <div class="form-group">
+        <label for="phone">Телефон:</label>
+        <input type="text" id="phone" name="phone" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label for="address">Адреса:</label>
+        <input type="text" id="address" name="address" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label for="userRole">Тип користувача:</label>
+        <select id="userRole" name="userRole" class="form-control" required>
+            <option value="Client">Клієнт</option>
+            <option value="Mechanic">Механік</option>
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-success">Створити користувача</button>
+</form>
+
+<a asp-page="ManageRoles" class="btn btn-secondary mt-2">Назад до списку</a>

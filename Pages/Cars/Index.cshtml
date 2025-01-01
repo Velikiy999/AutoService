@@ -1,0 +1,56 @@
+﻿@page
+@model AutoService.Pages_Cars.IndexModel
+
+@{
+    ViewData["Title"] = "Список автомобілів";
+}
+
+<h1>Список автомобілів</h1>
+
+<form method="get">
+    <div class="form-group">
+        <input type="text" name="SearchQuery" value="@Model.SearchQuery" class="form-control" placeholder="Пошук за маркою, моделлю або номером" />
+        <button type="submit" class="btn btn-primary mt-2">Пошук</button>
+    </div>
+</form>
+<div style="max-height: 400px; overflow-y: auto;">
+<table class="table">
+    <thead>
+        <tr>
+            <th>Марка</th>
+            <th>Модель</th>
+            <th>Рік</th>
+            <th>Реєстраційний номер</th>
+            <th>Клієнт</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var car in Model.Cars)
+        {
+            <tr>
+                <td>@car.Make</td>
+                <td>@car.Model</td>
+                <td>@car.Year</td>
+                <td>@car.RegistrationNumber</td>
+                <td>@car.Client.Name</td>
+                <td>
+                    @if (!User.IsInRole("Client"))
+                    {
+
+                        <a asp-page="./Edit" asp-route-id="@car.Id" class="btn btn-warning btn-sm">Редагувати</a>
+                        <a asp-page="./Details" asp-route-id="@car.Id" class="btn btn-info btn-sm">Деталі</a>
+                        <a asp-page="./Delete" asp-route-id="@car.Id" class="btn btn-danger btn-sm">Видалити</a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+</div>
+@if (!User.IsInRole("Client"))
+{
+    <a asp-page="./Create" class="btn btn-success">Додати новий автомобіль</a>
+
+}
+

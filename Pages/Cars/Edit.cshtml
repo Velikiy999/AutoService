@@ -1,0 +1,68 @@
+﻿@page
+@model AutoService.Pages_Cars.EditModel
+
+@{
+    ViewData["Title"] = "Редагувати";
+}
+
+<h1>Редагувати</h1>
+
+<h4>Автомобіль</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Car.Id" />
+
+            <div class="form-group">
+                <span class="text-danger">*</span>
+                <label asp-for="Car.Make" class="control-label">Марка</label>
+                <input asp-for="Car.Make" class="form-control" />
+                <span asp-validation-for="Car.Make" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <span class="text-danger">*</span>
+                <label asp-for="Car.Model" class="control-label">Модель</label>
+                <input asp-for="Car.Model" class="form-control" />
+                <span asp-validation-for="Car.Model" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <span class="text-danger">*</span>
+                <label asp-for="Car.Year" class="control-label">Рік</label>
+                <input asp-for="Car.Year" class="form-control" />
+                <span asp-validation-for="Car.Year" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <span class="text-danger">*</span>
+                <label asp-for="Car.RegistrationNumber" class="control-label">Номер реєстрації</label>
+                <input asp-for="Car.RegistrationNumber" class="form-control" />
+                <span asp-validation-for="Car.RegistrationNumber" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Car.Description" class="control-label">Опис</label>
+                <input asp-for="Car.Description" class="form-control" />
+                <span asp-validation-for="Car.Description" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <span class="text-danger">*</span>
+                <label asp-for="Car.ClientId" class="control-label">Клієнт</label>
+                <select asp-for="Car.ClientId" class="form-control" asp-items="ViewBag.ClientId"></select>
+                <span asp-validation-for="Car.ClientId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Зберегти" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Повернутися до списку</a>
+</div>

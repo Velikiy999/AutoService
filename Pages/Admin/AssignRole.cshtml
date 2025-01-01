@@ -1,0 +1,23 @@
+﻿@page
+@model AutoService.Pages.Admin.AssignRoleModel
+
+@{
+    ViewData["Title"] = "Призначити роль";
+}
+
+<h1>Призначити роль користувачу</h1>
+
+<form method="post">
+    <input type="hidden" name="userId" value="@Model.UserId" />
+    <div class="form-group">
+        <label for="role">Роль:</label>
+        <select name="role" class="form-select">
+            @foreach (var role in Model.Roles)
+            {
+                <option value="@role.Name">@role.Name</option>
+            }
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Призначити роль</button>
+    <a href="/Admin/ManageRoles" class="btn btn-secondary">Назад</a>
+</form>

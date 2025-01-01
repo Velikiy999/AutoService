@@ -1,0 +1,48 @@
+﻿@page
+@model AutoService.Pages_FinancialTransactionss.CreateModel
+
+@{
+    ViewData["Title"] = "Створити фінансову операцію";
+}
+
+<h1>Створити фінансову операцію</h1>
+
+<form method="post">
+    <div class="form-group">
+        <label for="FinancialTransactions_ClientId">Клієнт</label>
+        <select id="FinancialTransactions_ClientId" name="FinancialTransactions.ClientId" class="form-control" required>
+            <option value="" disabled selected>Виберіть клієнта</option>
+            @foreach (var client in Model.Clients)
+            {
+                <option value="@client.Id">@client.Name</option>
+            }
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="FinancialTransactions_Amount">Сума</label>
+        <input type="number" id="FinancialTransactions_Amount" name="FinancialTransactions.Amount" class="form-control" required min="0" />
+    </div>
+
+    <div class="form-group">
+        <label for="FinancialTransactions_Type">Тип операції</label>
+        <select id="FinancialTransactions_Type" name="FinancialTransactions.Type" class="form-control" required>
+            <option value="Оплата">Оплата</option>
+            <option value="Виставлений рахунок">Виставлений рахунок</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="FinancialTransactions_Description">Опис</label>
+        <textarea id="FinancialTransactions_Description" name="FinancialTransactions.Description" class="form-control"></textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="FinancialTransactions_Date">Дата операції</label>
+        <input type="date" id="FinancialTransactions_Date" name="FinancialTransactions.Date" class="form-control" required />
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-2">Створити операцію</button>
+</form>
+
+<a asp-page="./Index" class="btn btn-secondary mt-2">Назад до списку</a>

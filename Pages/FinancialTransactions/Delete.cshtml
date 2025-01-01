@@ -1,0 +1,52 @@
+﻿@page
+@model AutoService.Pages_FinancialTransactionss.DeleteModel
+
+@{
+    ViewData["Title"] = "Видалення";
+}
+
+<h1>Видалення</h1>
+
+<h3>Ви впевнені, що хочете видалити цю транзакцію?</h3>
+<div>
+    <h4>Фінансова транзакція</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.FinancialTransactions.Client)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.FinancialTransactions.Client.Email)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.FinancialTransactions.Date)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.FinancialTransactions.Date)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.FinancialTransactions.Amount)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.FinancialTransactions.Amount)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.FinancialTransactions.Type)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.FinancialTransactions.Type)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.FinancialTransactions.Description)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.FinancialTransactions.Description)
+        </dd>
+    </dl>
+
+    <form method="post">
+        <input type="hidden" asp-for="FinancialTransactions.Id" />
+        <input type="submit" value="Видалити" class="btn btn-danger" /> |
+        <a asp-page="./Index">Повернутись до списку</a>
+    </form>
+</div>

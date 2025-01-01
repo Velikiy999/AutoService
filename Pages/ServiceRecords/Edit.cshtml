@@ -1,0 +1,55 @@
+﻿@page
+@model AutoService.Pages_ServiceRecords.EditModel
+
+@{
+    ViewData["Title"] = "Редагувати";
+}
+
+<h1>Редагувати</h1>
+
+<h4>Запис сервісного обслуговування</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="ServiceRecord.Id" />
+            <div class="form-group">
+                <span class="text-danger">*</span>
+                <label asp-for="ServiceRecord.CarId" class="control-label">Автомобіль</label>
+                <select asp-for="ServiceRecord.CarId" class="form-control" asp-items="ViewBag.CarId"></select>
+                <span asp-validation-for="ServiceRecord.CarId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <span class="text-danger">*</span>
+                <label asp-for="ServiceRecord.ServiceDate" class="control-label">Дата обслуговування</label>
+                <input asp-for="ServiceRecord.ServiceDate" class="form-control" />
+                <span asp-validation-for="ServiceRecord.ServiceDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <span class="text-danger">*</span>
+                <label asp-for="ServiceRecord.Description" class="control-label">Опис</label>
+                <input asp-for="ServiceRecord.Description" class="form-control" />
+                <span asp-validation-for="ServiceRecord.Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <span class="text-danger">*</span>
+                <label asp-for="ServiceRecord.Price" class="control-label">Ціна</label>
+                <input asp-for="ServiceRecord.Price" class="form-control" />
+                <span asp-validation-for="ServiceRecord.Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ServiceRecord.Status" class="control-label">Статус</label>
+                <input asp-for="ServiceRecord.Status" class="form-control" />
+                <span asp-validation-for="ServiceRecord.Status" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Зберегти" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Повернутись до списку</a>
+</div>

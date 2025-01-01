@@ -1,0 +1,46 @@
+﻿@page
+@model AutoService.Pages_Reminders.IndexModel
+
+@{
+    ViewData["Title"] = "Нагадування";
+}
+
+<h1>Нагадування</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Клієнт</th>
+            <th>Дата нагадування</th>
+            <th>Повідомлення</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var reminder in Model.Reminders)
+        {
+            <tr>
+                <td>@(reminder.Client?.Name ?? "Admin")</td>
+                <td>@reminder.ReminderDate.ToString("yyyy-MM-dd")</td>
+                <td>@reminder.Message</td>
+                <td>
+                    @if (!User.IsInRole("Client"))
+                    {
+
+                        <a asp-page="./Edit" asp-route-id="@reminder.Id" class="btn btn-warning btn-sm">Редагувати</a>
+                        <a asp-page="./Details" asp-route-id="@reminder.Id" class="btn btn-info btn-sm">Деталі</a>
+                        <a asp-page="./Delete" asp-route-id="@reminder.Id" class="btn btn-danger btn-sm">Видалити</a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@if (!Model.Reminders.Any())
+{
+    <p>Немає активних нагадувань.</p>
+}
+@if (!User.IsInRole("Client"))
+{
+    <a asp-page="/Reminders/Create" class="btn btn-success">Створити нове нагадування</a>
+}

@@ -1,0 +1,46 @@
+﻿@page
+@model AutoService.Pages_Clients.IndexModel
+@{
+    ViewData["Title"] = "Список клієнтів";
+}
+
+<h1>Список клієнтів</h1>
+
+<form method="get">
+    <div class="form-group">
+        <input type="text" name="SearchQuery" value="@Model.SearchQuery" class="form-control" placeholder="Пошук за іменем або email" />
+        <button type="submit" class="btn btn-primary mt-2">Пошук</button>
+    </div>
+</form>
+<div style="max-height: 400px; overflow-y: auto;">
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Ім'я</th>
+            <th>Email</th>
+            <th>Телефон</th>
+            <th>Адреса</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var client in Model.Clients)
+        {
+            <tr>
+                <td>@client.UserId</td>
+                <td>@client.Name</td>
+                <td>@client.Email</td>
+                <td>@client.Phone</td>
+                <td>@client.Address</td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@client.Id" class="btn btn-warning btn-sm">Редагувати</a>
+                    <a asp-page="./Details" asp-route-id="@client.Id" class="btn btn-info btn-sm">Деталі</a>
+                    <a asp-page="./Delete" asp-route-id="@client.Id" class="btn btn-danger btn-sm">Видалити</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+</div>
+<a asp-page="./Create" class="btn btn-success">Додати нового клієнта</a>

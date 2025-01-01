@@ -1,0 +1,77 @@
+﻿@page
+@model AutoService.Pages_ServiceRecords.CreateModel
+
+@{
+    ViewData["Title"] = "Запис на технічне обслуговування";
+}
+
+<h1>Запис на технічне обслуговування</h1>
+
+<div>
+    <form method="post">
+        <div class="form-group">
+            <label for="ServiceRecord_CarId">Автомобіль</label>
+            <select id="ServiceRecord_CarId" name="ServiceRecord.CarId" class="form-control" required>
+                <option value="" disabled selected>Виберіть автомобіль</option>
+                @foreach (var car in Model.Cars)
+                {
+                    <option value="@car.Id">@car.Make @car.Model - @car.RegistrationNumber</option>
+                }
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="ServiceRecord_ServiceDate">Дата обслуговування</label>
+            <input type="date" id="ServiceRecord_ServiceDate" name="ServiceRecord.ServiceDate" class="form-control" required />
+        </div>
+
+        <div class="form-group">
+            <label for="ServiceRecord_Description">Опис послуг</label>
+            <textarea id="ServiceRecord_Description" name="ServiceRecord.Description" class="form-control" required></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="ServiceRecord_Price">Ціна</label>
+            <input type="number" id="ServiceRecord_Price" name="ServiceRecord.Price" class="form-control" required min="0" />
+        </div>
+
+        <div class="form-group">
+            <label for="ServiceRecord_SpareParts">Запасні частини</label>
+
+            <div id="SparePartSelections" style="max-height: 400px; overflow-y: auto;">
+                @foreach (var part in Model.SpareParts)
+                {
+                    <div class="form-group">
+                        <label for="SparePart_@part.Id">@part.Name</label>
+                        <input type="hidden" name="SparePartQuantities[0]" value="0" />
+                        @if (part.Quantity == 0)
+                        {
+                            <div>
+                                <span class="text-danger">Ця запчастина недоступна.</span>
+                                <select name="SparePartQuantities[@part.Id]" class="form-control" disabled>
+                                    <option value="0">Недоступно</option>
+                                </select>
+                            </div>
+                        }
+                        else
+                        {
+                            <select name="SparePartQuantities[@part.Id]" class="form-control">
+                                <option value="0">Виберіть кількість</option>
+                                @for (int i = 1; i <= part.Quantity; i++)
+                                {
+                                    <option value="@i">@i</option>
+                                }
+                            </select>
+                        }
+                    </div>
+                }
+
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary mt-2">Створити запис</button>
+    </form>
+
+
+    <a asp-page="./Index" class="btn btn-secondary mt-2">Назад до списку</a>
+</div>

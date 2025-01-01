@@ -1,0 +1,51 @@
+﻿@page
+@model AutoService.Pages_Reminders.EditModel
+
+@{
+    ViewData["Title"] = "Редагувати";
+}
+
+<h1>Редагувати</h1>
+
+<h4>Нагадування</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Reminder.Id" />
+
+            <!-- Клієнт -->
+            <div class="form-group">
+                <span class="text-danger">*</span>
+                <label asp-for="Reminder.ClientId" class="control-label">Клієнт</label>
+                <select asp-for="Reminder.ClientId" class="form-control" asp-items="ViewBag.ClientId"></select>
+                <span asp-validation-for="Reminder.ClientId" class="text-danger"></span>
+            </div>
+
+            <!-- Дата нагадування -->
+            <div class="form-group">
+                <span class="text-danger">*</span>
+                <label asp-for="Reminder.ReminderDate" class="control-label">Дата нагадування</label>
+                <input asp-for="Reminder.ReminderDate" class="form-control" />
+                <span asp-validation-for="Reminder.ReminderDate" class="text-danger"></span>
+            </div>
+
+            <!-- Повідомлення -->
+            <div class="form-group">
+                <span class="text-danger">*</span>
+                <label asp-for="Reminder.Message" class="control-label">Повідомлення</label>
+                <input asp-for="Reminder.Message" class="form-control" />
+                <span asp-validation-for="Reminder.Message" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Зберегти" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Повернутись до списку</a>
+</div>

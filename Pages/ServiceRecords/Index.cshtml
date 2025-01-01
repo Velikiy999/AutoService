@@ -1,0 +1,63 @@
+﻿@page
+@model AutoService.Pages_ServiceRecords.IndexModel
+
+@{
+    ViewData["Title"] = "Записи на технічне обслуговування";
+}
+
+<h1>Записи на технічне обслуговування</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Автомобіль</th>
+            <th>Дата обслуговування</th>
+            <th>Опис послуг</th>
+            <th>Ціна</th>
+            <th>Статус</th>
+            <th>Запасні частини</th> <!-- Добавлен столбец для запасных частей -->
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var record in Model.ServiceRecords)
+        {
+            <tr>
+                <td>@record.Car.Make @record.Car.Model - @record.Car.RegistrationNumber</td>
+                <td>@record.ServiceDate.ToString("yyyy-MM-dd")</td>
+                <td>@record.Description</td>
+                <td>@record.Price</td>
+                <td>@record.Status</td>
+                <td>
+                    @if (record.ServiceRecordSpareParts != null && record.ServiceRecordSpareParts.Any())
+                    {
+                        <ul>
+                            @foreach (var sparePart in record.ServiceRecordSpareParts)
+                            {
+                                <li>@sparePart.SparePart.Name - @sparePart.Quantity шт.</li>
+                            }
+                        </ul>
+                    }
+                    else
+                    {
+                        <span>Відсутні</span>
+                    }
+                </td>
+
+                @if (!User.IsInRole("Client"))
+                {
+                    <td>
+                        <a asp-page="./Edit" asp-route-id="@record.Id" class="btn btn-warning btn-sm">Редагувати</a>
+                        <a asp-page="./Details" asp-route-id="@record.Id" class="btn btn-info btn-sm">Деталі</a>
+                        <a asp-page="./Delete" asp-route-id="@record.Id" class="btn btn-danger btn-sm">Видалити</a>
+                    </td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>
+
+@if (!User.IsInRole("Client"))
+{
+    <a asp-page="./Create" class="btn btn-success">Додати новий запис</a>
+}

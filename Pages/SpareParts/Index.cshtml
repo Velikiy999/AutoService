@@ -1,0 +1,55 @@
+﻿@page
+@model AutoService.Pages_SpareParts.IndexModel
+
+@{
+    ViewData["Title"] = "Індекс";
+}
+
+<h1>Список запасних частин</h1>
+
+<p>
+    <a asp-page="Create">Створити нову</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <label>Назва</label>
+            </th>
+            <th>
+                <label>Опис</label>
+            </th>
+            <th>
+                <label>Кількість</label>
+            </th>
+            <th>
+                <label>Ціна</label>
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.SparePart)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quantity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.Id">Редагувати</a> |
+                    <a asp-page="./Details" asp-route-id="@item.Id">Деталі</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.Id">Видалити</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

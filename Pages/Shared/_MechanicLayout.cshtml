@@ -1,0 +1,170 @@
+﻿<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - AutoService</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/AutoService.styles.css" asp-append-version="true" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            min-height: 100vh;
+            margin: 0;
+            transition: margin-left 0.3s ease;
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 250px;
+            height: 100%;
+            background-color: #f8f9fa;
+            padding-top: 20px;
+            border-right: 1px solid #ddd;
+            transition: width 0.3s ease;
+        }
+
+        .sidebar .nav-link {
+            display: flex;
+            align-items: center;
+        }
+
+        .sidebar .nav-link i {
+            margin-right: 10px;
+        }
+
+        .toggle-btn {
+            position: fixed;
+            bottom: 70px;
+            left: 250px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: left 0.3s ease;
+        }
+
+        .sidebar.collapsed {
+            width: 0;
+            padding-top: 0;
+            border-right: none;
+        }
+
+        .sidebar.collapsed .nav-link {
+            display: none;
+        }
+
+        .main-content {
+            margin-left: 250px;
+            width: 100%;
+            padding: 20px;
+            transition: margin-left 0.3s ease;
+        }
+
+        footer {
+            margin-left: 250px;
+        }
+
+        .sidebar.collapsed + .toggle-btn {
+            left: 0;
+        }
+
+        .sidebar.collapsed + .toggle-btn i {
+            transform: rotate(180deg);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="sidebar">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-page="/Index">AutoService</a>
+                <ul class="navbar-nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-page="/Index">
+                            <i class="bi bi-house-door"></i> Головна
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-page="/Privacy">
+                            <i class="bi bi-shield-lock"></i> Конфіденційність
+                        </a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-page="/Cars/Index">
+                            <i class="bi bi-car-front"></i> Автомобілі
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-page="/Clients/Index">
+                            <i class="bi bi-person"></i> Клієнти
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-page="/FinancialTransactions/Index">
+                            <i class="bi bi-wallet2"></i> Фінансові транзакції
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-page="/Reminders/Index">
+                            <i class="bi bi-alarm"></i> Нагадування
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-page="/ServiceRecords/Index">
+                            <i class="bi bi-file-earmark-medical"></i> Записи на обслуговування
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-page="/SpareParts/Index">
+                            <i class="bi bi-box"></i> Облік запчастин
+                        </a>
+                    </li>
+                </ul>
+
+                <partial name="_LoginPartial" />
+            </div>
+        </div>
+
+        <button class="toggle-btn" id="toggleBtn">
+            <i class="bi bi-chevron-left"></i>
+        </button>
+    </header>
+
+    <div class="main-content">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; Автоматизована інформаційна система для СТО 2024 <a asp-area="" asp-page="/Privacy">Конфіденційність</a>
+        </div>
+    </footer>
+</body>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+
+    <script>
+        document.getElementById("toggleBtn").addEventListener("click", function() {
+            const sidebar = document.querySelector(".sidebar");
+            const mainContent = document.querySelector(".main-content");
+            const button = document.getElementById("toggleBtn");
+
+            sidebar.classList.toggle("collapsed");
+            mainContent.style.marginLeft = sidebar.classList.contains("collapsed") ? "0" : "250px";
+            button.style.left = sidebar.classList.contains("collapsed") ? "0" : "250px";
+        });
+    </script>
+</bo

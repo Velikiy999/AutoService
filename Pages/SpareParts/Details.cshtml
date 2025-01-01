@@ -1,0 +1,44 @@
+﻿@page
+@model AutoService.Pages_SpareParts.DetailsModel
+
+@{
+    ViewData["Title"] = "Деталі";
+}
+
+<h1>Деталі</h1>
+
+<div>
+    <h4>Запасна частина</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            <label>Назва</label>
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.SparePart.Name)
+        </dd>
+        <dt class="col-sm-2">
+            <label>Опис</label>
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.SparePart.Description)
+        </dd>
+        <dt class="col-sm-2">
+            <label>Кількість</label>
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.SparePart.Quantity)
+        </dd>
+        <dt class="col-sm-2">
+            <label>Ціна</label>
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.SparePart.Price)
+        </dd>
+    </dl>
+</div>
+
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.SparePart.Id">Редагувати</a> |
+    <a asp-page="./Index">Назад до списку</a>
+</div>
